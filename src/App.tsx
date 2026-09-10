@@ -146,45 +146,43 @@ export default function App({ userId }: { userId: string }) {
           <span className="demo-tag">DEMO PROTOTYPE</span>
         </header>
 
-        <section className="hero">
-          <div className="hero-copy">
-            <p className="eyebrow">EXPLORE A BALANCED INDIA</p>
-            <h1>
-              Travel beyond
-              <br />
-              the crowds.
-            </h1>
-            <p>
-              Smarter travel. Happier places.
-              <br />
-              Stronger communities.
-            </p>
-            <a href="#destinations">
-              Find your next escape <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-          <div
-            className="hero-photo"
-            role="img"
-            aria-label="Illustrative mountain landscape"
-          />
-        </section>
-
-        <form className="search-box" onSubmit={search}>
-          <div>
-            <label htmlFor="destination">Where would you like to go?</label>
-            <input
-              id="destination"
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              placeholder="Try Kedarnath or Uttarakhand"
-            />
-          </div>
-          <button className="primary" type="submit">
-            Search destinations →
-          </button>
-        </form>
-
+{page !== 'Plan' && (
+  <><></><section className="hero">
+            <div className="hero-copy">
+              <p className="eyebrow">EXPLORE A BALANCED INDIA</p>
+              <h1>
+                Travel beyond
+                <br />
+                the crowds.
+              </h1>
+              <p>
+                Smarter travel. Happier places.
+                <br />
+                Stronger communities.
+              </p>
+              <a href="#destinations">
+                Find your next escape <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <div
+              className="hero-photo"
+              role="img"
+              aria-label="Illustrative mountain landscape" />
+          </section><form className="search-box" onSubmit={search}>
+              <div>
+                <label htmlFor="destination">Where would you like to go?</label>
+                <input
+                  id="destination"
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="Try Kedarnath or Uttarakhand" />
+              </div>
+              <button className="primary" type="submit">
+                Search destinations →
+              </button>
+            </form></>
+  
+)}
         {page === 'Plan' ? (
           <Redirect />
         ) : page === 'Trips' ? (
