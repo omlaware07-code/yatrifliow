@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useDestinations, useRedirect } from './useDestinations'
+import ImpactStats from './ImpactStats'
 
 function defaultDate() {
   const date = new Date()
@@ -69,7 +70,7 @@ export default function Redirect() {
           <h2>Check before you go</h2>
         </div>
       </div>
-
+<ImpactStats />
       <form className="planner-form" onSubmit={submit}>
         <div>
           <label htmlFor="plan-destination">Where are you planning to go?</label>
