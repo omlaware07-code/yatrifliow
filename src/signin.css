@@ -1,0 +1,49 @@
+.signin-page { width: 100%; max-width: none; min-height: 100vh; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; background: #fff; }
+.signin-form-side { padding: 40px clamp(24px, 5vw, 80px) 24px; display: flex; flex-direction: column; }
+.signin-brand { display: flex; align-items: center; gap: 12px; color: #075e4c; font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+.signin-brand > span { font-size: 48px; line-height: 1; }
+.signin-brand small { display: block; font-size: 14px; font-weight: 400; letter-spacing: 0; }
+.signin-content { width: 100%; max-width: 420px; margin: auto; padding: 56px 0; }
+.signin-eyebrow { font-size: 14px; font-weight: 600; letter-spacing: 1.5px; color: #536a60; margin: 0 0 16px; }
+.signin-content h1 { font-size: clamp(36px, 3.5vw, 52px); line-height: 1.1; letter-spacing: -1.5px; margin: 0 0 16px; }
+.signin-description { font-size: 18px; color: #607168; line-height: 1.6; margin: 0 0 32px; }
+.signin-form { display: grid; gap: 12px; }
+.signin-form label { font-size: 14px; font-weight: 600; }
+.signin-form > input, .signin-password-field { margin-bottom: 8px; }
+.signin-form input { width: 100%; min-width: 0; min-height: 50px; border: 1px solid #b2c4b9; border-radius: 8px; padding: 12px 14px; color: #172f2c; background: #fff; font-size: 16px; }
+.signin-form input::placeholder { color: #6a7970; opacity: 1; }
+.signin-password-field { display: flex; align-items: center; border: 1px solid #b2c4b9; border-radius: 8px; }
+.signin-password-field input { flex: 1; border: 0; }
+.signin-password-field button { min-height: 44px; min-width: 64px; margin-right: 4px; border: 0; color: #075e4c; background: transparent; font-size: 14px; font-weight: 600; }
+.signin-setup { margin: 0 0 8px; font-size: 14px; color: #756023; line-height: 1.5; }
+.signin-submit, .signin-demo { display: flex; justify-content: center; align-items: center; gap: 16px; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid #075e4c; border-radius: 8px; font-size: 16px; font-weight: 600; }
+.signin-submit { background: #075e4c; color: #fff; }
+.signin-submit:hover { background: #064735; }
+.signin-demo { background: #fff; color: #075e4c; }
+.signin-demo:hover { background: #edf5ef; }
+.signin-divider { display: flex; align-items: center; gap: 16px; margin: 24px 0; font-size: 14px; color: #627369; }
+.signin-divider::before, .signin-divider::after { content: ''; height: 1px; background: #dfe7e2; flex: 1; }
+.signin-demo-note { font-size: 14px; text-align: center; margin: 12px 0 0; color: #63716b; }
+.signin-notice { background: #fff5d9; color: #6d5516; padding: 12px; border: 1px solid #d8c289; border-radius: 8px; font-size: 14px; margin: 4px 0 0; }
+.signin-footer { margin-top: auto; padding: 0; font-size: 14px; }
+.signin-story { margin: 16px 16px 16px 0; padding: 40px; border-radius: 12px; background: #e5eee7; display: flex; flex-direction: column; min-width: 0; }
+.signin-story-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; color: #315b47; font-size: 14px; letter-spacing: 1.5px; }
+.signin-story-top > span:last-child { font-size: 36px; line-height: 1; }
+.signin-story-copy { margin: 64px 0 32px; }
+.signin-story-copy h2 { color: #173f31; font-size: clamp(32px, 3.3vw, 48px); line-height: 1.15; letter-spacing: -1.5px; margin: 0 0 24px; }
+.signin-story-copy p { color: #4e6958; font-size: 18px; margin: 0; }
+.signin-scenery.hero-photo { flex: 1; min-height: 300px; border-radius: 8px; background-position: center; }
+.signin-story-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 24px; font-size: 14px; color: #3b5c49; }
+.demo-session { display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 12px 24px; background: #eaf3ee; border-bottom: 1px solid #b9cfc1; font-size: 14px; }
+.demo-session button { background: #fff; color: #075e4c; border: 1px solid #94b8a3; padding: 10px 16px; min-height: 44px; white-space: nowrap; }
+@media (max-width: 800px) {
+  .signin-page { grid-template-columns: 1fr; }
+  .signin-form-side { padding: 24px; min-height: 100svh; }
+  .signin-content { padding: 40px 0; }
+  .signin-story { margin: 0 16px 16px; padding: 24px; }
+  .signin-story-copy { margin: 32px 0 24px; }
+  .signin-scenery.hero-photo { min-height: 230px; }
+  .signin-story-copy h2 { font-size: 34px; }
+  .demo-session { padding: 12px 16px; flex-wrap: wrap; }
+}
+
