@@ -3,8 +3,20 @@ import type { FormEvent } from 'react'
 import './index.css'
 import MyTrips from './MyTrips'
 import MyStays from './MyStays'
+import Redirect from './Redirect'
 import { useSavedPlaces } from './useSavedPlaces'
 import { useDestinations } from './useDestinations'
+
+const NAV_ITEMS = ['Home', 'Explore', 'Plan', 'Saved', 'Trips', 'Stays']
+
+const NAV_ICONS: Record<string, string> = {
+  Home: '⌂',
+  Explore: '◎',
+  Plan: '◈',
+  Saved: '♡',
+  Trips: '✈',
+  Stays: '❖',
+}
 
 const CATEGORIES = [
   'All',
@@ -87,24 +99,14 @@ export default function App({ userId }: { userId: string }) {
         </a>
 
         <nav aria-label="Main navigation">
-          {['Home', 'Explore', 'Saved', 'Trips', 'Stays'].map((item) => (
+          {NAV_ITEMS.map((item) => (
             <button
               key={item}
               className={page === item ? 'nav-item active' : 'nav-item'}
               aria-current={page === item ? 'page' : undefined}
               onClick={() => navigate(item)}
             >
-              <span aria-hidden="true">
-                {item === 'Home'
-                  ? '⌂'
-                  : item === 'Explore'
-                    ? '◎'
-                    : item === 'Saved'
-                      ? '♡'
-                      : item === 'Trips'
-                        ? '✈'
-                        : '🏡'}
-              </span>
+              <span aria-hidden="true">{NAV_ICONS[item]}</span>
               {item}
               {item === 'Saved' && <small>{saved.length}</small>}
             </button>
@@ -183,7 +185,9 @@ export default function App({ userId }: { userId: string }) {
           </button>
         </form>
 
-        {page === 'Trips' ? (
+        {page === 'Plan' ? (
+          <Redirect />
+        ) : page === 'Trips' ? (
           <MyTrips userId={userId} />
         ) : page === 'Stays' ? (
           <MyStays userId={userId} />
@@ -234,9 +238,7 @@ export default function App({ userId }: { userId: string }) {
                 Crowd levels are modelled estimates, not live forecasts.
               </p>
 
-              {placesLoading && (
-                <p role="status">Loading destinations…</p>
-              )}
+              {placesLoading && <p role="status">Loading destinations…</p>}
 
               {placesError && (
                 <div role="alert">
@@ -329,7 +331,7 @@ export default function App({ userId }: { userId: string }) {
                       </p>
                       <p>{detail.blurb}</p>
                       <p className="data-note">
-                        Dates, forecasts and bookings are not connected yet.
+                        Open the Plan tab to check crowd levels for your dates.
                       </p>
                     </div>
                     <button

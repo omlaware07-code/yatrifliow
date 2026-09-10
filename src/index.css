@@ -105,3 +105,147 @@ footer { padding: 16px 0 32px; display: flex; justify-content: space-between; fl
   min-height: 180px;
   background: linear-gradient(135deg, #1f4037, #99f2c8);
 }
+
+/* ===== Redirect planner — append to the end of src/index.css ===== */
+
+.planner {
+  padding: 32px 0;
+}
+
+.planner-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  background: #fff;
+  border: 1px solid #e4e9e6;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.planner-form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 200px;
+}
+
+.planner-form label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #46554e;
+}
+
+.planner-form select,
+.planner-form input {
+  padding: 10px 12px;
+  border: 1px solid #d7ded9;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+  color: #16241d;
+}
+
+.status-card {
+  background: #fff;
+  border: 1px solid #e4e9e6;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.band {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.band.overloaded {
+  background: #fbe4e4;
+  color: #9c2020;
+}
+
+.band.busy {
+  background: #fdf0d9;
+  color: #8a5a10;
+}
+
+.band.comfortable {
+  background: #e2f3e8;
+  color: #1f6135;
+}
+
+.alternatives {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.alternative-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  background: #fff;
+  border: 1px solid #e4e9e6;
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.alternative-main h4 {
+  margin: 0 0 6px;
+  font-size: 19px;
+}
+
+.reason {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #46554e;
+}
+
+.alternative-side {
+  text-align: right;
+  min-width: 130px;
+}
+
+.pressure-figure {
+  display: block;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  color: #1f6135;
+}
+
+.alternative-side small {
+  color: #7c8a83;
+  font-size: 12px;
+}
+
+.bookable {
+  margin: 10px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f6135;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.planner-error {
+  background: #fbe4e4;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
