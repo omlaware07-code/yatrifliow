@@ -25,6 +25,12 @@ function bandClass(band: string) {
   return 'band comfortable'
 }
 
+function sourceLabel(source: string | null) {
+  if (source === 'forecast') return 'FORECAST'
+  if (source === 'festival') return 'EVENT SIGNAL'
+  return 'SEASONAL MODEL'
+}
+
 function reason(
   type: string,
   originType: string | undefined,
@@ -70,7 +76,9 @@ export default function Redirect() {
           <h2>Check before you go</h2>
         </div>
       </div>
-<ImpactStats />
+
+      <ImpactStats />
+
       <form className="planner-form" onSubmit={submit}>
         <div>
           <label htmlFor="plan-destination">Where are you planning to go?</label>
@@ -146,6 +154,25 @@ export default function Redirect() {
                 crowd {status.crowd_index}/100 · pressure {status.pressure}/100
               </span>
             </p>
+
+            <div className="signal-strip">
+              <span
+                className={
+                  status.signal_source === 'forecast'
+                    ? 'signal-tag forecast'
+                    : status.signal_source === 'festival'
+                      ? 'signal-tag event'
+                      : 'signal-tag model'
+                }
+              >
+                {sourceLabel(status.signal_source)}
+              </span>
+              <span>
+                {status.signal_note ??
+                  'Seasonality, weekend and capacity model — no measured signal for this date.'}
+              </span>
+            </div>
+
             <p className="data-note">
               Pressure weighs crowd against how much the place can absorb, so a
               small fragile site scores higher than a large town at the same

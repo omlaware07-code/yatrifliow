@@ -23,6 +23,8 @@ export type CrowdStatus = {
   crowd_index: number
   pressure: number
   band: 'Overloaded' | 'Busy' | 'Comfortable'
+  signal_source: 'forecast' | 'festival' | 'model' | null
+  signal_note: string | null
 }
 
 export type Alternative = {
@@ -50,10 +52,6 @@ function message(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback
 }
 
-/**
- * Replaces the hardcoded `places` array in App.tsx.
- * Destinations are public-read, so this works signed out too.
- */
 export function useDestinations() {
   const [destinations, setDestinations] = useState<Destination[]>([])
   const [loading, setLoading] = useState(true)
@@ -93,13 +91,6 @@ export function useDestinations() {
   return { destinations, loading, error }
 }
 
-/**
- * The redirect flow: how crowded is this place on this date,
- * and what calmer places are nearby.
- *
- * Both calls hit Postgres functions, so the scoring logic
- * never ships to the browser.
- */
 export function useRedirect() {
   const [status, setStatus] = useState<CrowdStatus | null>(null)
   const [alternatives, setAlternatives] = useState<Alternative[]>([])
