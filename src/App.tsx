@@ -4,6 +4,7 @@ import './index.css'
 import MyTrips from './MyTrips'
 import MyStays from './MyStays'
 import Redirect from './Redirect'
+import DestinationPage from './DestinationPage'
 import { useSavedPlaces } from './useSavedPlaces'
 import { useDestinations } from './useDestinations'
 
@@ -39,8 +40,8 @@ export default function App({ userId }: { userId: string }) {
   const [input, setInput] = useState('')
   const [query, setQuery] = useState('')
   const [lowOnly, setLowOnly] = useState(false)
-  const [selected, setSelected] = useState<number | null>(null)
   const [category, setCategory] = useState('All')
+  const [openPlace, setOpenPlace] = useState<number | null>(null)
 
   const {
     destinations,
@@ -61,12 +62,12 @@ export default function App({ userId }: { userId: string }) {
       (page !== 'Saved' || saved.includes(place.id)),
   )
 
-  const detail = destinations.find((place) => place.id === selected)
+  const detail = destinations.find((place) => place.id === openPlace)
 
   function search(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setQuery(input.trim())
-    setSelected(null)
+    setOpenPlace(null)
     setPage('Explore')
   }
 
@@ -76,7 +77,7 @@ export default function App({ userId }: { userId: string }) {
     setQuery('')
     setLowOnly(false)
     setCategory('All')
-    setSelected(null)
+    setOpenPlace(null)
   }
 
   return (
@@ -123,7 +124,7 @@ export default function App({ userId }: { userId: string }) {
           <p>Responsible travel starts with thoughtful choices.</p>
         </div>
 
-        <small className="prototype">SIH PROJECT · STEP 02</small>
+        <small className="prototype">SIH PROJECT · TEAM RAJMUDRA</small>
       </aside>
 
       <main>
@@ -141,49 +142,65 @@ export default function App({ userId }: { userId: string }) {
 
         <header className="topbar">
           <span>
-            {page} <span className="muted">/ Discover India</span>
+            {detail ? detail.name : page}{' '}
+            <span className="muted">/ Discover India</span>
           </span>
           <span className="demo-tag">DEMO PROTOTYPE</span>
         </header>
 
-{page !== 'Plan' && (
-  <><></><section className="hero">
-            <div className="hero-copy">
-              <p className="eyebrow">EXPLORE A BALANCED INDIA</p>
-              <h1>
-                Travel beyond
-                <br />
-                the crowds.
-              </h1>
-              <p>
-                Smarter travel. Happier places.
-                <br />
-                Stronger communities.
-              </p>
-              <a href="#destinations">
-                Find your next escape <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-            <div
-              className="hero-photo"
-              role="img"
-              aria-label="Illustrative mountain landscape" />
-          </section><form className="search-box" onSubmit={search}>
+        {page !== 'Plan' && !detail && (
+          <>
+            <section className="hero">
+              <div className="hero-copy">
+                <p className="eyebrow">EXPLORE A BALANCED INDIA</p>
+                <h1>
+                  Travel beyond
+                  <br />
+                  the crowds.
+                </h1>
+                <p>
+                  Smarter travel. Happier places.
+                  <br />
+                  Stronger communities.
+                </p>
+                <a href="#destinations">
+                  Find your next escape <span aria-hidden="true">↗</span>
+                </a>
+              </div>
+              <div
+                className="hero-photo"
+                role="img"
+                aria-label="Illustrative mountain landscape"
+              />
+            </section>
+
+            <form className="search-box" onSubmit={search}>
               <div>
                 <label htmlFor="destination">Where would you like to go?</label>
                 <input
                   id="destination"
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder="Try Kedarnath or Uttarakhand" />
+                  placeholder="Try Kedarnath or Uttarakhand"
+                />
               </div>
               <button className="primary" type="submit">
                 Search destinations →
               </button>
-            </form></>
-  
-)}
-        {page === 'Plan' ? (
+            </form>
+          </>
+        )}
+
+        {detail ? (
+          <DestinationPage
+            place={detail}
+            onClose={() => setOpenPlace(null)}
+            onOpenPlanner={() => {
+              setOpenPlace(null)
+              navigate('Plan')
+            }}
+          />
+        ) : page === 'Plan' ? (
           <Redirect />
         ) : page === 'Trips' ? (
           <MyTrips userId={userId} />
@@ -207,10 +224,7 @@ export default function App({ userId }: { userId: string }) {
                   <input
                     type="checkbox"
                     checked={lowOnly}
-                    onChange={(event) => {
-                      setLowOnly(event.target.checked)
-                      setSelected(null)
-                    }}
+                    onChange={(event) => setLowOnly(event.target.checked)}
                   />
                   Less crowded
                 </label>
@@ -222,10 +236,7 @@ export default function App({ userId }: { userId: string }) {
                     key={item}
                     aria-pressed={category === item}
                     className={category === item ? 'chip chosen' : 'chip'}
-                    onClick={() => {
-                      setCategory(item)
-                      setSelected(null)
-                    }}
+                    onClick={() => setCategory(item)}
                   >
                     {item}
                   </button>
@@ -233,7 +244,8 @@ export default function App({ userId }: { userId: string }) {
               </div>
 
               <p className="data-note">
-                Crowd levels are modelled estimates, not live forecasts.
+                Crowd levels are modelled estimates, calibrated against ASI
+                footfall data where it exists.
               </p>
 
               {placesLoading && <p role="status">Loading destinations…</p>}
@@ -291,11 +303,7 @@ export default function App({ userId }: { userId: string }) {
                       <p className="card-note">{place.blurb}</p>
                       <button
                         className="text-button"
-                        aria-expanded={selected === place.id}
-                        aria-controls="place-details"
-                        onClick={() =>
-                          setSelected(selected === place.id ? null : place.id)
-                        }
+                        onClick={() => setOpenPlace(place.id)}
                       >
                         View overview →
                       </button>
@@ -317,30 +325,6 @@ export default function App({ userId }: { userId: string }) {
                   </button>
                 </div>
               )}
-
-              <div id="place-details" aria-live="polite">
-                {detail && (
-                  <section className="detail-panel">
-                    <div>
-                      <p className="eyebrow">DESTINATION PREVIEW</p>
-                      <h2>{detail.name}</h2>
-                      <p>
-                        {detail.state} · {detail.type}
-                      </p>
-                      <p>{detail.blurb}</p>
-                      <p className="data-note">
-                        Open the Plan tab to check crowd levels for your dates.
-                      </p>
-                    </div>
-                    <button
-                      className="close-button"
-                      onClick={() => setSelected(null)}
-                    >
-                      Close
-                    </button>
-                  </section>
-                )}
-              </div>
             </section>
 
             <section className="impact">

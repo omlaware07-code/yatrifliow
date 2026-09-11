@@ -34,6 +34,7 @@ function sourceLabel(source: string | null) {
 function reason(
   type: string,
   originType: string | undefined,
+  originName: string | undefined,
   distance: number,
   relief: number,
 ) {
@@ -41,7 +42,7 @@ function reason(
   if (originType && type === originType) {
     bits.push(`same ${type.toLowerCase()} experience`)
   }
-  bits.push(`${Math.round(distance)} km away`)
+  bits.push(`${Math.round(distance)} km from ${originName ?? 'there'}`)
   bits.push(`${Math.round(relief)} points calmer`)
   return bits.join(' · ')
 }
@@ -196,6 +197,7 @@ export default function Redirect() {
                   {reason(
                     place.type,
                     status.type,
+                     status.name,
                     place.distance_km,
                     place.relief,
                   )}
