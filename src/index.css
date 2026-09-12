@@ -335,7 +335,7 @@ footer { padding: 16px 0 32px; display: flex; justify-content: space-between; fl
   background: linear-gradient(to top, rgba(10,28,18,.88), rgba(10,28,18,.25) 60%, rgba(10,28,18,.1));
 }
 .dp-hero-text { position: relative; z-index: 1; padding: 28px 32px; color: #fff; }
-.dp-hero-text h1 { margin: 0 0 6px; font-size: 42px; line-height: 1.05; }
+.dp-hero-text h1 { text-shadow: 0 2px 12px rgba(0,0,0,.5); } { margin: 0 0 6px; font-size: 42px; line-height: 1.05; }
 .dp-hero-sub { margin: 0 0 12px; font-size: 16px; color: #d7e4da; max-width: 620px; }
 .dp-hero-meta { display: flex; gap: 18px; flex-wrap: wrap; margin: 0; font-size: 13px; color: #a9c0b1; }
 
